@@ -1,5 +1,5 @@
 interface ListProps {
-  items: { name: string; age: string }[];
+  items: { name: string; age: number }[];
 }
 export default function List({ items }: ListProps) {
   return (
