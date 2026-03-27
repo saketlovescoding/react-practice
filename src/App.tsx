@@ -7,6 +7,8 @@ interface Item {
   name: string;
   age: number;
 }
+
+let id: number = 3;
 function App() {
   // prop for List component
   const [items, setItems] = useState<Item[]>([
@@ -14,17 +16,27 @@ function App() {
     { id: 2, name: "Anisha", age: 22 },
   ]);
 
+  const [submitCount, setSubmitCount] = useState(0);
+
   // prop for form componet
   function addItem(name: string, age: number) {
-    setItems([...items, { id: 3, name, age }]);
+    setItems([...items, { id, name, age }]);
+    id++;
   }
 
   function deleteItem(id: number) {
     const newItems: Item[] = items.filter((item) => item.id !== id);
     setItems(newItems);
   }
+
+  function color(): any {
+    setSubmitCount(submitCount + 1);
+  }
   return (
-    <div>
+    <div style={{ backgroundColor: submitCount % 2 == 0 ? "yellow" : "white" }}>
+      <button type="submit" onClick={() => color()}>
+        Change Background Color
+      </button>
       <Form onAdd={addItem} />
       <List items={items} onDelete={deleteItem} />
     </div>

@@ -125,3 +125,40 @@ function addItem(name: string, age: number) {
 - Use `Date.now()` for quick unique ids
 - Maintain a counter and increment it
 - Use `Math.max(...items.map(i => i.id)) + 1` to get the next id
+
+---
+
+## 5. Re-rendering in React
+
+A component re-renders when:
+
+1. **Its state changes** — calling a setter from `useState` (e.g., `setItems`, `setSubmitCount`) triggers a re-render.
+2. **Its props change** — if the parent passes different prop values.
+3. **Its parent re-renders** — even if the child's props haven't changed, it re-renders by default. Use `React.memo()` to prevent this.
+4. **A context it consumes changes** — if the component uses `useContext` and the context value updates.
+
+### Key takeaway
+
+- Re-renders flow **downward** (parent → children), never upward.
+- A child can only cause a parent to re-render **indirectly** — by calling a prop function that updates the parent's state.
+- Plain variables outside the component (e.g., `let count = 0`) do **not** trigger re-renders. You must use `useState` for the UI to update.
+
+---
+
+## 6. Dynamic Inline Styles with State
+
+To dynamically change styles, derive the style value from state rather than hardcoding it.
+
+### Example
+
+```tsx
+const [submitCount, setSubmitCount] = useState(0);
+
+<div style={{ backgroundColor: submitCount % 2 === 0 ? "yellow" : "white" }}>
+  <button onClick={() => setSubmitCount(submitCount + 1)}>
+    Change Background Color
+  </button>
+</div>
+```
+
+The inline `style` prop takes a **JavaScript object** with camelCase keys (e.g., `backgroundColor`, not `background-color`). The double curly braces: outer `{}` is the JSX expression, inner `{}` is the style object.
