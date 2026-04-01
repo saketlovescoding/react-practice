@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Post from "./features/jsonPlaceholder/Post";
 import Form from "./features/todo/Form";
 import List from "./features/todo/List";
 
@@ -17,7 +18,6 @@ function App() {
   ]);
 
   const [submitCount, setSubmitCount] = useState(0);
-
   // prop for form componet
   function addItem(name: string, age: number) {
     setItems([...items, { id, name, age }]);
@@ -39,6 +39,7 @@ function App() {
       </button>
       <Form onAdd={addItem} />
       <List items={items} onDelete={deleteItem} />
+      <Post />
     </div>
   );
 }
